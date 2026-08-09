@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alasan Sayang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    
+<audio id="bgMusic" loop>
+    <source src="bukancintabiasa.mp3" type="audio/mpeg">
+</audio>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="alasan.html" class="active">Alasan</a>
+        <a href="kuis.html">Kuis</a>
+        <a href="pesan.html">Pesan</a>
+        <a href="kesan.html">Buku Tamu</a>
+    </nav>
+
+    <section>
+        <h1>Kenapa Aku Sayang Kamu?</h1>
+        <div class="card" id="alasanBox">Klik tombol di bawah ya!</div>
+        <button class="btn-main" onclick="gantiAlasan()">Beri Alasan Acak 🎲</button>
+        <a href="kuis.html" class="next-btn">Main Kuis Yuk <span>➡️</span></a>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        const alasan = [
+            "Karena kamu selalu bikin aku senyum.", 
+            "Karena kamu sabar menghadapi emosiku.", 
+            "Karena senyummu paling cantik di dunia.", 
+            "Karena kamu menerima aku apa adanya.",
+            "Karena bersamamu, waktu terasa berhenti."
+        ];
+        function gantiAlasan() {
+            const box = document.getElementById('alasanBox');
+            box.style.opacity = 0;
+            setTimeout(() => {
+                box.innerText = '"' + alasan[Math.floor(Math.random() * alasan.length)] + '"';
+                box.style.opacity = 1;
+                box.style.transition = 'opacity 0.5s';
+            }, 300);
+        }
+    </script>
+</body>
+</html>

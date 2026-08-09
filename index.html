@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Journey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    
+<audio id="bgMusic" loop>
+    <source src="bukancintabiasa.mp3" type="audio/mpeg">
+</audio>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="story.html">Story</a>
+        <a href="alasan.html">Alasan</a>
+        <a href="kuis.html">Kuis</a>
+        <a href="pesan.html">Pesan</a>
+        <a href="kesan.html">Buku Tamu</a>
+    </nav>
+
+    <section id="home">
+        <h1>Sejak Kita Bersama ❤️</h1>
+        <p style="font-size: 1.2rem;">Hitung mundur cinta kita:</p>
+        <div id="timer">
+            <div class="time-box"><span id="days">0</span><label>Hari</label></div>
+            <div class="time-box"><span id="hours">0</span><label>Jam</label></div>
+            <div class="time-box"><span id="minutes">0</span><label>Menit</label></div>
+            <div class="time-box"><span id="seconds">0</span><label>Detik</label></div>
+        </div>
+        <a href="story.html" class="next-btn">Cerita Kita <span>➡️</span></a>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Timer Jadian
+        const jadianDate = new Date("2023-02-14T00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const gap = now - jadianDate;
+            document.getElementById('days').innerText = Math.floor(gap / (1000*60*60*24));
+            document.getElementById('hours').innerText = Math.floor((gap % (1000*60*60*24)) / (1000*60*60));
+            document.getElementById('minutes').innerText = Math.floor((gap % (1000*60*60)) / (1000*60));
+            document.getElementById('seconds').innerText = Math.floor((gap % (1000*60)) / 1000);
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Rahasia</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS Khusus buat Pesan Gemes */
+        #pesanIsi {
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+            margin-top: 30px;
+        }
+        .pesan-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        .pesan-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .pesan-card p {
+            color: #f8f9fa;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .pesan-card:first-child p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #ffc0cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    
+ <audio id="bgMusic" loop>
+    <source src="bukancintabiasa.mp3" type="audio/mpeg">
+</audio>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="alasan.html">Alasan</a>
+        <a href="kuis.html">Kuis</a>
+        <a href="pesan.html" class="active">Pesan</a>
+        <a href="kesan.html">Buku Tamu</a>
+    </nav>
+
+    <section>
+        <h1>Surat Rahasia 💌</h1>
+        <p style="margin-bottom: 20px;">Masukkan tanggal jadian kita (Format: DD-MM-YYYY)</p>
+        <input type="password" id="passInput" placeholder="Passwordnya: 05-08-2026">
+        <button class="btn-main" onclick="bukaPesan()">Buka Amplop</button>
+        
+        <div id="pesanIsi" style="display: none;">
+            <div class="pesan-card">
+                <p>Pacar tersayang, aku cuma mau bilang terima kasih ya sudah hadir dan bikin hari-hariku jadi jauh lebih berwarna. Kamu itu ibarat vitamin dan alasanku buat terus tersenyum tiap kali bangun tidur, jadi tolong jangan pernah bosan sama aku ya, cewek manis! 🥺💖✨</p>
+            </div>
+            <div class="pesan-card">
+                <p>Kamu tuh gemesin banget pas lagi ngambek atau pura-pura cemberut, tapi aslinya minta dipeluk hihi! 🤭</p>
+            </div>
+            <div class="pesan-card">
+                <p>Ketawa kamu itu candu banget, bikin aku ikutan happy walaupun lagi capek seharian. 🌻</p>
+            </div>
+            <div class="pesan-card">
+                <p>Suka heran kenapa ada ya pacar secantik dan baik hati kayak kamu, beruntung banget aku tuh! 🥰</p>
+            </div>
+            <div class="pesan-card">
+                <p>Makasih ya udah sabar sama aku yang kadang suka nyebelin dan banyak kurangnya ini. 🥺</p>
+            </div>
+        </div>
+        <a href="kesan.html" class="next-btn">Tulis Love Note <span>➡️</span></a>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        function bukaPesan() {
+            const pass = document.getElementById('passInput').value;
+            // Password diganti jadi 05-08-2026
+            if (pass === "05-08-2026") {
+                const pesanContainer = document.getElementById('pesanIsi');
+                pesanContainer.style.display = 'block';
+                
+                // Ambil semua kartu pesan
+                const cards = document.querySelectorAll('.pesan-card');
+                
+                // Munculkan kartu satu per satu (efek ngetik/tampil bertahap)
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('show');
+                    }, 400 * index); // Delay 0.4 detik per kalimat
+                });
+
+                // Scroll otomatis ke bawah biar pas
+                setTimeout(() => {
+                    pesanContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 500);
+
+            } else {
+                alert("Password salah! Coba ingat-ingat tanggal jadian kita ya sayang 🥺");
+            }
+        }
+    </script>
+</body>
+</html>

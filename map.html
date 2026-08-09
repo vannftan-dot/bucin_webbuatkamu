@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Map</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .map-wrapper {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .map-wrapper h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .map-iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
+            border-radius: 15px;
+            filter: invert(90%) hue-rotate(180deg); /* Bikin google maps jadi mode gelap biar match tema */
+        }
+        .map-caption {
+            margin-top: 15px;
+            color: #ffc0cb;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    
+<audio id="bgMusic" loop>
+    <source src="bukancintabiasa.mp3" type="audio/mpeg">
+</audio>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="alasan.html">Alasan</a>
+        <a href="janji.html">Janji</a>
+        <a href="kuis.html">Kuis</a>
+        <a href="map.html" class="active">Love Map</a>
+        <a href="pesan.html">Pesan</a>
+        <a href="kesan.html">Buku Tamu</a>
+    </nav>
+
+    <section>
+        <h1>Tempat Istimewa Kita 📍</h1>
+        <p>Tempat di mana semuanya dimulai...</p>
+        
+        <div class="map-wrapper">
+            <h3>Titik Nol Cinta Kita ❤️</h3>
+            <!-- Ganti src di bawah ini dengan link embed Google Maps lokasi kalian -->
+            <iframe 
+                class="map-iframe"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3882397667415!2d106.82710931476882!3d-6.175392995514475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonas!5e0!3m2!1sid!2sid!4v1634257234567!5m2!1sid!2sid" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+            <p class="map-caption">"Tempat pertama kali aku melihatmu tersenyum secara langsung..."</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

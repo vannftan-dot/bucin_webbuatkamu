@@ -1,0 +1,200 @@
+/* Import Font Romantis & Modern */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+:root { 
+    --primary: #ff79b0; 
+    --primary-glow: rgba(255, 121, 176, 0.6);
+    --text-light: #f8f9fa;
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; 
+    font-family: 'Poppins', sans-serif;
+}
+
+body { 
+    background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 40%, #5c2a4d 70%, #87285f 100%);
+    color: var(--text-light);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Custom Scrollbar Biar Cantik */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1a0b2e; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+/* Efek Bola Cahaya (Glowing Orbs) */
+.orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.4; animation: float 15s infinite ease-in-out; }
+.orb-1 { width: 400px; height: 400px; background: #ff4d8d; top: -100px; left: -100px; }
+.orb-2 { width: 300px; height: 300px; background: #7b2ff7; bottom: -50px; right: -50px; animation-delay: -5s; }
+.orb-3 { width: 250px; height: 250px; background: #ff9a9e; top: 40%; left: 50%; animation-delay: -10s; }
+@keyframes float { 
+    0%, 100% { transform: translate(0, 0) scale(1); } 
+    33% { transform: translate(50px, -30px) scale(1.1); } 
+    66% { transform: translate(-30px, 40px) scale(0.9); } 
+}
+
+/* Partikel Jatuh */
+.particle { position: fixed; pointer-events: none; z-index: 9999; font-size: 20px; animation: fall 5s linear infinite; }
+@keyframes fall { 0% { top: -10%; opacity: 1; } 100% { top: 110%; opacity: 0; transform: rotate(360deg); } }
+
+/* Music Button */
+#musicBtn { 
+    position: fixed; top: 20px; right: 20px; z-index: 100; 
+    background: var(--primary); color: white; border: none; width: 50px; height: 50px; 
+    border-radius: 50%; cursor: pointer; font-size: 20px; 
+    box-shadow: 0 0 15px var(--primary-glow); 
+    transition: transform 0.3s; 
+    display: flex; align-items: center; justify-content: center;
+}
+#musicBtn:hover { transform: scale(1.1) rotate(15deg); }
+
+/* Navbar (Auto Wrap biar rapi di HP) */
+nav { 
+    background: rgba(26, 11, 46, 0.7); 
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+    padding: 15px; position: sticky; top: 0; z-index: 50; 
+    display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3); 
+    border-bottom: 1px solid var(--glass-border); 
+}
+nav a { 
+    text-decoration: none; color: #ffc0cb; font-weight: 400; 
+    padding: 8px 16px; border-radius: 20px; transition: 0.3s; font-size: 0.9rem; 
+}
+nav a:hover, nav a.active { 
+    background: var(--primary); color: white; 
+    box-shadow: 0 0 10px var(--primary-glow); 
+}
+
+/* Layout Section */
+section { 
+    min-height: 90vh; padding: 80px 20px; display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; text-align: center; 
+    animation: fadeInUp 1s ease-out; /* Animasi muncul */
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 { 
+    color: #fff; 
+    font-family: 'Dancing Script', cursive; /* Font kursif romantis */
+    font-size: 3.5rem; 
+    margin-bottom: 20px; 
+    text-shadow: 0 0 20px var(--primary-glow); 
+}
+p { color: #e0e0e0; line-height: 1.6; font-weight: 300; }
+
+/* Glass Cards */
+.card { 
+    background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border); padding: 25px; border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); max-width: 600px; margin: 10px; width: 100%; 
+    text-align: left; transition: transform 0.3s, box-shadow 0.3s; 
+}
+.card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 40px var(--primary-glow); 
+    border-color: var(--primary); 
+}
+.card h3 { color: var(--primary); margin-bottom: 10px; font-weight: 600; }
+#alasanBox { min-height: 100px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-style: italic; color: #fff; text-align: center; }
+
+/* Tombol */
+.btn-prank, .btn-main, button[type="submit"] {
+    border: none; cursor: pointer; font-weight: 600; color: white; transition: all 0.3s;
+}
+.btn-prank { padding: 15px 40px; border-radius: 30px; font-size: 1.2rem; margin: 10px; }
+#btnMau { background: linear-gradient(45deg, #ff4d8d, #ff9a9e); box-shadow: 0 5px 20px var(--primary-glow); }
+#btnMau:hover { transform: scale(1.05); }
+#btnNo { background: linear-gradient(45deg, #6c757d, #495057); position: absolute; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+.btn-main, button[type="submit"] { 
+    background: linear-gradient(45deg, #ff4d8d, #ff9a9e); padding: 12px 30px; 
+    border-radius: 30px; margin-top: 20px; box-shadow: 0 5px 20px var(--primary-glow);
+    width: 100%; max-width: 400px;
+}
+.btn-main:hover, button[type="submit"]:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 25px var(--primary-glow); 
+}
+
+/* Love Timer */
+#timer { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+.time-box { 
+    background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); 
+    padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); min-width: 80px; 
+    transition: transform 0.3s;
+}
+.time-box:hover { transform: scale(1.05); border-color: var(--primary); }
+.time-box span { display: block; font-size: 2rem; font-weight: 600; color: #fff; text-shadow: 0 0 10px var(--primary); }
+.time-box label { font-size: 0.8rem; color: #ffc0cb; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Form Input */
+input, textarea, select { 
+    width: 100%; max-width: 400px; padding: 15px; margin: 10px 0; border-radius: 12px; 
+    background: var(--glass); border: 1px solid var(--glass-border); color: white; 
+    font-family: 'Poppins', sans-serif; font-size: 1rem; transition: 0.3s;
+}
+input:focus, textarea:focus, select:focus { 
+    outline: none; border-color: var(--primary); 
+    box-shadow: 0 0 10px var(--primary-glow); 
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.6); }
+select option { color: black; }
+
+/* Buku Tamu List */
+#notesList { margin-top: 30px; max-width: 600px; width: 100%; text-align: left; }
+.note-item { 
+    background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); 
+    padding: 15px; border-radius: 12px; margin-bottom: 10px; animation: fadeInUp 0.5s ease;
+}
+.note-item b { color: var(--primary); font-weight: 600; }
+.note-item p { margin-top: 5px; color: #e0e0e0; font-size: 0.95rem; }
+
+/* Responsive HP */
+@media (max-width: 600px) {
+    h1 { font-size: 2.5rem; }
+    .btn-prank { font-size: 1rem; padding: 12px 30px; }
+    nav { gap: 5px; padding: 10px; }
+    nav a { font-size: 0.8rem; padding: 6px 12px; }
+}
+/* Tombol Lanjut Melayang */
+.next-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(45deg, #ff4d8d, #ff9a9e);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(255, 77, 141, 0.6);
+    transition: all 0.3s ease;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+.next-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 77, 141, 0.8);
+}
+.next-btn span {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+.next-btn:hover span {
+    transform: translateX(5px); /* Efek panah bergerak ke kanan */
+}

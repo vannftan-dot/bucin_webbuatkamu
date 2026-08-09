@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Notes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS Khusus Buku Tamu */
+        .form-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        /* Pemilih Mood Emoji */
+        .mood-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .mood-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .mood-btn:hover { transform: scale(1.1); }
+        .mood-btn.active {
+            background: var(--primary);
+            border-color: #fff;
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: scale(1.1);
+        }
+
+        /* List Pesan (Balon Chat) */
+        #notesList {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .note-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            padding: 15px 20px;
+            border-radius: 20px 20px 20px 5px; /* Bikin kayak balon chat */
+            text-align: left;
+            animation: popIn 0.5s ease;
+            position: relative;
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+        .note-name { color: var(--primary); font-weight: 600; }
+        .note-mood { font-size: 1.2rem; }
+        .note-text { color: #e0e0e0; line-height: 1.5; font-size: 0.95rem; }
+
+        .empty-state {
+            color: rgba(255,255,255,0.5);
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        /* Notifikasi Toast */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background: linear-gradient(45deg, #ff4d8d, #ff9a9e);
+            color: white;
+            text-align: center;
+            border-radius: 30px;
+            padding: 16px;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%) translateY(100px);
+            font-weight: 600;
+            box-shadow: 0 5px 25px rgba(255, 77, 141, 0.6);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        #toast.show {
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    
+ <audio id="bgMusic" loop>
+    <source src="bukancintabiasa.mp3" type="audio/mpeg">
+</audio>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="alasan.html">Alasan</a>
+        <a href="kuis.html">Kuis</a>
+        <a href="pesan.html">Pesan</a>
+        <a href="kesan.html" class="active">Buku Tamu</a>
+    </nav>
+
+    <section>
+        <h1>Love Notes & Mood 💌</h1>
+        <p style="margin-bottom: 20px;">Tulisarin pesan cinta atau curhatan kamu buat aku hari ini!</p>
+        
+        <!-- Form Buku Tamu -->
+        <div class="form-card">
+            <form id="loveForm">
+                <input type="text" id="nama" placeholder="Nama Kamu" required>
+                
+                <p style="font-size: 0.9rem; color: #ffc0cb; margin-top: 10px;">Pilih Mood Kamu Hari Ini:</p>
+                <div class="mood-selector">
+                    <div class="mood-btn active" data-mood="😄 Senang">😄</div>
+                    <div class="mood-btn" data-mood="🥺 Rindu">🥺</div>
+                    <div class="mood-btn" data-mood="😠 Ngambek">😠</div>
+                    <div class="mood-btn" data-mood="😍 Jatuh Cinta">😍</div>
+                </div>
+                <input type="hidden" id="moodValue" value="😄 Senang" required>
+
+                <textarea id="pesanText" placeholder="Tulis pesan cintamu di sini..." required></textarea>
+                <button type="submit">Kirim Pesan ✈️</button>
+            </form>
+        </div>
+
+        <!-- Daftar Pesan -->
+        <div id="notesList">
+            <p class="empty-state">Belum ada pesan nih, jadi yang pertama kirim cinta ya!</p>
+        </div>
+        <!-- Tombol Reset Khusus Admin (Bisa kamu hapus kalau udah selesai dipakai) -->
+<div style="margin-top: 40px;">
+    <button onclick="resetDatabase()" style="background: rgba(255,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">
+         Reset Buku Tamu (Admin)
+    </button>
+</div>
+        <a href="index.html" class="next-btn">Balik ke Awal <span>⬆️</span></a>
+    </section>
+
+    <!-- Notifikasi Toast -->
+    <div id="toast">Pesan cintanya udah aman sampai di hati aku! 💌</div>
+
+    <script src="script.js"></script>
+    <script>
+        // Logic Pemilih Mood
+        const moodBtns = document.querySelectorAll('.mood-btn');
+        const moodValue = document.getElementById('moodValue');
+        
+        moodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                moodBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                moodValue.value = btn.dataset.mood;
+            });
+        });
+
+        // Fungsi Notifikasi Melayang (Toast)
+        function showToast(pesan) {
+            const toast = document.getElementById("toast");
+            toast.innerText = pesan;
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        // Logic API Database
+        const API_URL = 'api.php';
+        
+        async function loadNotes() {
+            try {
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                const list = document.getElementById('notesList');
+                
+                if (data.length === 0) {
+                    list.innerHTML = '<p class="empty-state">Belum ada pesan nih, jadi yang pertama kirim cinta ya!</p>';
+                    return;
+                }
+
+                list.innerHTML = '';
+                // Balik urutan biar yang terbaru di atas
+                data.reverse().forEach(note => {
+                    list.innerHTML += `
+                        <div class="note-item">
+                            <div class="note-header">
+                                <span class="note-name">${note.nama}</span>
+                                <span class="note-mood">${note.mood}</span>
+                            </div>
+                            <p class="note-text">${note.pesan}</p>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                console.log("Database belum connect");
+            }
+        }
+
+        // Logic Kirim Pesan
+        document.getElementById('loveForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const mood = document.getElementById('moodValue').value;
+            const pesan = document.getElementById('pesanText').value;
+            
+            // Ubah teks tombol jadi loading
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.innerText = "Mengirim...";
+            submitBtn.disabled = true;
+
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ nama, mood, pesan })
+            });
+            
+            // Munculin notifikasi bagus
+            showToast("Pesan cintanya udah aman sampai di hati aku! 💌");
+            
+            // Reset form & tombol
+            document.getElementById('loveForm').reset();
+            submitBtn.innerText = "Kirim Pesan ✈️";
+            submitBtn.disabled = false;
+            
+            // Reset mood ke Senang
+            moodBtns.forEach(b => b.classList.remove('active'));
+            document.querySelector('.mood-btn[data-mood="😄 Senang"]').classList.add('active');
+            moodValue.value = "😄 Senang";
+
+            // Muat ulang pesan
+            loadNotes();
+        });
+
+        // Load pertama kali
+        loadNotes();
+        async function resetDatabase() {
+    if (confirm("Yakin mau hapus SEMUA pesan buku tamu?")) {
+        await fetch('api.php?action=delete_all', { method: 'GET' });
+        alert("Semua pesan berhasil dihapus!");
+        loadNotes(); // Muat ulang data (bakal kosong)
+    }
+}
+    </script>
+</body>
+</html>

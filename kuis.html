@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Cinta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    
+ <audio id="bgMusic" loop>
+    <source src="bukancintabiasa.mp3" type="audio/mpeg">
+</audio>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="alasan.html">Alasan</a>
+        <a href="kuis.html" class="active">Kuis</a>
+        <a href="pesan.html">Pesan</a>
+        <a href="kesan.html">Buku Tamu</a>
+    </nav>
+
+    <section>
+        <h1>Mau Nggak Jadi Pacarku Selamanya?</h1>
+        <div style="position: relative; min-height: 80px; display: flex; justify-content: center; align-items: center; width: 100%;">
+            <button class="btn-prank" id="btnMau">Mau Banget! 💍</button>
+            <button class="btn-prank" id="btnNo">Enggak deh</button>
+        </div>
+        <div id="quizResult" style="margin-top:30px; font-size:1.5rem; color:#ff9a9e; font-weight:bold;"></div>
+        <a href="pesan.html" class="next-btn">Ada Pesan Rahasia <span>➡️</span></a>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        const btnNo = document.getElementById('btnNo');
+        btnNo.addEventListener('mouseover', () => {
+            btnNo.style.left = Math.random() * (window.innerWidth - 150) + 'px';
+            btnNo.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+        });
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            btnNo.style.left = Math.random() * (window.innerWidth - 150) + 'px';
+            btnNo.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+        });
+        document.getElementById('btnMau').addEventListener('click', () => {
+            document.getElementById('quizResult').innerText = "Aku tahu kamu pasti mau! I Love You ❤️";
+        });
+    </script>
+</body>
+</html>
